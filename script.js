@@ -67,6 +67,11 @@ function getWeather(){
 
         weatherResultsDiv.appendChild(weatherResultsH2);
         weatherResultsDiv.appendChild(weatherInfo);
+        
+        if (displayWeather.querySelectorAll('.weather-card-result').length >= 2) {
+            displayWeather.querySelector('.weather-card-result').remove()
+        }
+
         displayWeather.appendChild(weatherResultsDiv);
     })
     .then(() => {
