@@ -73,6 +73,7 @@ function getWeather(){
         }
 
         displayWeather.appendChild(weatherResultsDiv);
+        //wut
     })
     .then(() => {
         return fetch(unplashURL);
