@@ -3,9 +3,14 @@ const submitWeather = document.getElementById('btn_weather');
 const input =  document.getElementById('city_weather');
 const displayWeather = document.querySelector('.display-weather');
 
-submitWeather.addEventListener('click', getWeather);
+submitWeather.addEventListener('click', e => {
+    e.preventDefault();
+    getWeather()
+});
+
 input.addEventListener('keyup', e => {
     if(e.key === "Enter"){
+        e.preventDefault();
         getWeather()
     }
 })
@@ -50,9 +55,9 @@ function getWeather(){
             const day = responseData.list[i];
             const date = new Date(day.dt * 1000); // convert timestamp to date
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedDate = date.toLocaleDateString('en-US', options); // to get the full date with day of the week
+            const formattedDate = date.toLocaleDateString('en-US', options); // Get full date with day of the week
             const forecastDate = createElement('p', '', `${formattedDate}`);
-            const weatherTemp = createElement('p', '', `${day.main.temp} °C`);
+            const weatherTemp = createElement('p', 'temperature', `${day.main.temp} °C`);
             
             const icon = day.weather[0].main === 'Clouds' ? createIcon(`<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.002 7.009c3.168 0 4.966 2.097 5.227 4.63h.08a3.687 3.687 0 0 1 3.692 3.683a3.687 3.687 0 0 1-3.692 3.682H7.694a3.687 3.687 0 0 1-3.692-3.682a3.687 3.687 0 0 1 3.692-3.683h.08c.263-2.55 2.06-4.63 5.228-4.63M10 4c1.617 0 3.05.815 3.9 2.062a7.496 7.496 0 0 0-.898-.053c-2.994 0-5.171 1.677-5.937 4.213l-.068.24l-.058.238l-.206.039a4.681 4.681 0 0 0-3.449 3.045a3.282 3.282 0 0 1 1.812-5.881l.257-.006A4.72 4.72 0 0 1 10 4"/></svg>`) :
                          day.weather[0].main === 'Clear' ? createIcon(`<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 2a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1m7 14a7 7 0 1 1-14 0a7 7 0 0 1 14 0m6 1a1 1 0 0 0 0-2h-2a1 1 0 1 0 0 2zm-13 9a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1M5 17a1 1 0 1 0 0-2H3a1 1 0 1 0 0 2zm.294-11.706a1 1 0 0 1 1.414 0l2 2a1 1 0 1 1-1.414 1.414l-2-2a1 1 0 0 1 0-1.414m1.414 21.414a1 1 0 0 1-1.414-1.414l2-2a1 1 0 1 1 1.414 1.414zm20-21.414a1 1 0 0 0-1.414 0l-2 2a1 1 0 0 0 1.414 1.414l2-2a1 1 0 0 0 0-1.414m-1.414 21.414a1 1 0 0 0 1.414-1.414l-2-2a1 1 0 1 0-1.414 1.414z"/></svg>`) :
@@ -64,24 +69,23 @@ function getWeather(){
             weatherIconTemp.appendChild(icon);   
             weatherInfo.appendChild(weatherIconTemp);
             weatherResultsDiv.appendChild(weatherResultsH2);
-            weatherResultsDiv.appendChild(weatherInfo);      
-        }
-        
-        if (displayWeather.querySelectorAll('.weather-card-result').length >= 2) {
-            displayWeather.querySelector('.weather-card-result').remove()
-        }
+            weatherResultsDiv.appendChild(weatherInfo);
 
-        displayWeather.appendChild(weatherResultsDiv);
-        //wut
+            if (displayWeather.querySelectorAll('.weather-card-result').length >= 2) {
+                displayWeather.querySelector('.weather-card-result').remove()
+            }
+
+            displayWeather.appendChild(weatherResultsDiv);
+        }
     })
     .then(() => {
         return fetch(unplashURL);
     })
     .then((response) => response.json())
     .then((responseData) => {
-        const backgroundPhoto = responseData.results[0].urls.regular;
+        const backgroundPhoto = responseData.results[5].urls.regular;
         displayWeather.style.background = `url(${backgroundPhoto})`;
-
+        displayWeather.style.opacity = '0.9';
     })
 
     .catch((error) => { 

@@ -1,3 +1,8 @@
+@font-face{
+    font-family: Calliga;
+    src: url(./fonts/Calliga-Regular.otf)
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -15,12 +20,22 @@ h1{
     text-align: center;
     font-weight: 300;
     margin-bottom: 20px;
-
+    color: #b27c54;
+    font-family: Calliga, sans-serif;
 }
 
 input{
-    border-radius: 5px;
+    border-radius: 2px;
+    padding: 1px;
     margin-bottom: 20px;
+    border: 1px solid #b27c54;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+input:focus{
+    outline: none;
+    border: 1px solid #fbf2e7;
+    background-color: ffffff;
 }
 
 button{
@@ -29,14 +44,13 @@ button{
     box-sizing: border-box;
 	border: none;
 	border-radius: 25px;
-	padding: 15px;
+	padding: 10px 20px;
     margin-bottom: 20px;
 	/* font-family: 'Montserrat', sans-serif; */
-	background-image: linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%);
+	background-color: #dbd7b4;
 	color: #ffffff;
 	font-weight: 700;
-	-webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
-	        box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
+	/* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25); */
 	cursor: pointer;
 	transition: transform 200ms ease;
 
@@ -48,14 +62,40 @@ button:hover {
 	        transform: scale(0.95);
 }
 
+h2{
+    font-family: Calliga, sans-serif;
+}
+
 .display-weather{
+    position: relative;
     border: 1px grey solid;
     border-radius:  10px;
-    background-color: #274c77;
+    background-color: #f9dac9;
     background-repeat: no-repeat;
-    color: #d7e3fc;
+    color: #b27c54;;
     padding: 15px;
     text-align: center;
+}
+
+.flower {
+    width: 100px;
+    height: 100px;
+    animation: spin 4s linear infinite; /* Adjust duration and timing function as needed */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.flower-container {
+    position: absolute;
+    top: -45;
+    left: 25;
 }
 
 svg{
@@ -66,7 +106,6 @@ svg{
 .weather-icon-temp{
     display: flex;
     flex-direction: column;
-
     align-items: center; 
     justify-content: center;
     margin-top: 20px;
@@ -74,26 +113,55 @@ svg{
     color: #c1d3fe;
     border: #d7e3fc 1px solid;
     border-radius: 5px;
-    background-color: #222831;
+    background-color: rgb(243,211,206, 0.9);
+    color: #b27c54;
     padding: 5px;
 	transition: transform 200ms ease;
-
 }
 
 .weather-icon-temp:hover{
     -webkit-transform: scale(0.95);
     -ms-transform: scale(0.95);
         transform: scale(0.95);
-    background-color: #809fff;
-    color: #ffffff;
+    background-color: rgb(251,242,231);
+    color: #b27c54;
+}
+
+.weather-icon-temp .temperature{
+    font-weight: 600;
+    font-size: 20px;
 }
 
 
+/* .weather-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+} */
 
-@media only screen and (min-width: 700px) {
+
+@media only screen and (max-width: 700px) {
     .weather-icon-temp{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr;
-    } 
+    }
+
+        
+    .flower-container {
+        top: 30;
+        left: -35;
+    }
+
+    .flower {
+        width: 70px;
+        height: 70px;
+        animation: spin 4s linear infinite; /* Adjust duration and timing function as needed */
+    }
+
+    /* .weather-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    } */
 }
