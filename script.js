@@ -62,11 +62,10 @@ function getWeather(){
             weatherIconTemp.appendChild(forecastDate);
             weatherIconTemp.appendChild(weatherTemp);
             weatherIconTemp.appendChild(icon);   
-            weatherInfo.appendChild(weatherIconTemp)        
+            weatherInfo.appendChild(weatherIconTemp);
+            weatherResultsDiv.appendChild(weatherResultsH2);
+            weatherResultsDiv.appendChild(weatherInfo);      
         }
-
-        weatherResultsDiv.appendChild(weatherResultsH2);
-        weatherResultsDiv.appendChild(weatherInfo);
         
         if (displayWeather.querySelectorAll('.weather-card-result').length >= 2) {
             displayWeather.querySelector('.weather-card-result').remove()
